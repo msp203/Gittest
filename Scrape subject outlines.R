@@ -11,19 +11,33 @@ url <- function(subject_code){
 
 urls <- url(c(36100, 36103, 36106, 36102, 36104, 36101, 36109, 36105))
 
-xmls <- urls %>% 
+titles <- urls %>% 
     map(read_html) %>% 
-    map(html_node, "h1") %>% 
+    map(html_node,"h1") %>% 
     map_chr(html_text)
 
-xmls
+
+
+
+xmls <- as.data.frame(titles)
 
 
 
 
+body <- urls %>%
+    map(read_html) %>%
+    map(html_node, '#content') %>%
+    map_chr(html_text)
 
-course_data <- html_nodes(webpage, 'a')
+
+body <- as.data.frame(body)
+body[1]
+
+
+############################################
 
 course_text <- html_text(course_data)
 head(course_text)
 course_text <- course_text[72:99]
+
+############################################
